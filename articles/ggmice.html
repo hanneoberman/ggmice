@@ -137,7 +137,7 @@
 <div class="section level4">
 <h4 id="missing-data-pattern">Missing data pattern<a class="anchor" aria-label="anchor" href="#missing-data-pattern"></a>
 </h4>
-<p>The <code><a href="../reference/plot_pattern.html">plot_pattern()</a></code> function displays the missing data pattern in an incomplete dataset. The argument <code>dat</code> (the incomplete dataset) is required, the argument <code>square</code> is optional and determines whether the missing data pattern has square or rectangular tiles, and the optional argument <code>rotate</code> changes the angle of the variable names 90 degrees if requested.</p>
+<p>The <code><a href="../reference/plot_pattern.html">plot_pattern()</a></code> function displays the missing data pattern in an incomplete dataset. The argument <code>data</code> (the incomplete dataset) is required, the argument <code>square</code> is optional and determines whether the missing data pattern has square or rectangular tiles, and the optional argument <code>rotate</code> changes the angle of the variable names 90 degrees if requested.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create missing data pattern plot</span>
 <span class="fu"><a href="../reference/plot_pattern.html">plot_pattern</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
@@ -151,7 +151,7 @@
 <div class="section level4">
 <h4 id="influx-and-outflux">Influx and outflux<a class="anchor" aria-label="anchor" href="#influx-and-outflux"></a>
 </h4>
-<p>The <code><a href="../reference/plot_flux.html">plot_flux()</a></code> function produces an influx-outflux plot. The influx of a variable quantifies how well its missing data connect to the observed data on other variables. The outflux of a variable quantifies how well its observed data connect to the missing data on other variables. In general, higher influx and outflux values are preferred when building imputation models. The plotting function requires an incomplete dataset (argument <code>dat</code>), and takes optional arguments to adjust the legend and axis labels.</p>
+<p>The <code><a href="../reference/plot_flux.html">plot_flux()</a></code> function produces an influx-outflux plot. The influx of a variable quantifies how well its missing data connect to the observed data on other variables. The outflux of a variable quantifies how well its observed data connect to the missing data on other variables. In general, higher influx and outflux values are preferred when building imputation models. The plotting function requires an incomplete dataset (argument <code>data</code>), and takes optional arguments to adjust the legend and axis labels.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create influx-outflux plot</span>
 <span class="fu"><a href="../reference/plot_flux.html">plot_flux</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
@@ -169,7 +169,7 @@
 <div class="section level4">
 <h4 id="correlations-between-variables">Correlations between variables<a class="anchor" aria-label="anchor" href="#correlations-between-variables"></a>
 </h4>
-<p>The function <code><a href="../reference/plot_corr.html">plot_corr()</a></code> can be used to investigate relations between variables, for the development of imputation models. Only one of the arguments (<code>dat</code>, the incomplete dataset) is required, all other arguments are optional.</p>
+<p>The function <code><a href="../reference/plot_corr.html">plot_corr()</a></code> can be used to investigate relations between variables, for the development of imputation models. Only one of the arguments (<code>data</code>, the incomplete dataset) is required, all other arguments are optional.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create correlation plot</span>
 <span class="fu"><a href="../reference/plot_corr.html">plot_corr</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
@@ -189,7 +189,7 @@
 <div class="section level4">
 <h4 id="predictor-matrix">Predictor matrix<a class="anchor" aria-label="anchor" href="#predictor-matrix"></a>
 </h4>
-<p>The function <code><a href="../reference/plot_pred.html">plot_pred()</a></code> displays <code>mice</code> predictor matrices. A predictor matrix is typically created using <code><a href="https://amices.org/mice/reference/make.predictorMatrix.html" class="external-link">mice::make.predictorMatrix()</a></code>, <code><a href="https://amices.org/mice/reference/quickpred.html" class="external-link">mice::quickpred()</a></code>, or by using the default in <code><a href="https://amices.org/mice/reference/mice.html" class="external-link">mice::mice()</a></code> and extracting the <code>predictorMatrix</code> from the resulting <code>mids</code> object. The <code><a href="../reference/plot_pred.html">plot_pred()</a></code> function only requires the <code>pred</code> argument, but other arguments can be provided.</p>
+<p>The function <code><a href="../reference/plot_pred.html">plot_pred()</a></code> displays <code>mice</code> predictor matrices. A predictor matrix is typically created using <code><a href="https://amices.org/mice/reference/make.predictorMatrix.html" class="external-link">mice::make.predictorMatrix()</a></code>, <code><a href="https://amices.org/mice/reference/quickpred.html" class="external-link">mice::quickpred()</a></code>, or by using the default in <code><a href="https://amices.org/mice/reference/mice.html" class="external-link">mice::mice()</a></code> and extracting the <code>predictorMatrix</code> from the resulting <code>mids</code> object. The <code><a href="../reference/plot_pred.html">plot_pred()</a></code> function requires a predictor matrix (the <code>data</code> argument), but other arguments can be provided too.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create predictor matrix</span>
 <span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://amices.org/mice/reference/quickpred.html" class="external-link">quickpred</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
@@ -231,7 +231,7 @@
 <div class="section level4">
 <h4 id="algorithmic-convergence">Algorithmic convergence<a class="anchor" aria-label="anchor" href="#algorithmic-convergence"></a>
 </h4>
-<p>The function <code><a href="../reference/plot_trace.html">plot_trace()</a></code> plots the trace lines of the MICE algorithm for convergence evaluation. The only required argument is <code>imp</code> (to supply a <code><a href="https://amices.org/mice/reference/mids-class.html" class="external-link">mice::mids</a></code> object). The optional argument <code>vrb</code> defaults to <code>"all"</code>, which would display traceplots for all variables.</p>
+<p>The function <code><a href="../reference/plot_trace.html">plot_trace()</a></code> plots the trace lines of the MICE algorithm for convergence evaluation. The only required argument is <code>data</code> (to supply a <code><a href="https://amices.org/mice/reference/mids-class.html" class="external-link">mice::mids</a></code> object). The optional argument <code>vrb</code> defaults to <code>"all"</code>, which would display traceplots for all variables.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create traceplot for one variable</span>
 <span class="fu"><a href="../reference/plot_trace.html">plot_trace</a></span><span class="op">(</span><span class="va">imp</span>, <span class="st">"bmi"</span><span class="op">)</span></code></pre></div>
