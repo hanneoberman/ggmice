@@ -28,8 +28,9 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
       .data$ind,
       levels = c(-2, 0, 1, 2, 3),
       labels = c("cluster variable", "not used", "predictor", "random effect", "inclusion-restriction variable"),
-      ordered = TRUE)
+      ordered = TRUE
     )
+  )
   gg <- ggplot2::ggplot(long, ggplot2::aes(x = .data$prd, y = .data$vrb, label = .data$ind, fill = .data$clr)) +
     ggplot2::geom_tile(color = "black", alpha = 0.6) +
     ggplot2::scale_x_discrete(limits = vrbs, position = "top") +
@@ -39,7 +40,8 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
       "not used" = "grey90",
       "predictor" = "palegreen3",
       "random effect" = "deepskyblue",
-      "inclusion-restriction variable" = "orangered")) +
+      "inclusion-restriction variable" = "orangered"
+    )) +
     ggplot2::labs(
       x = "Imputation model predictor",
       y = "Variable to impute",
@@ -60,4 +62,3 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
   }
   return(gg)
 }
-

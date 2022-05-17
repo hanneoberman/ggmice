@@ -66,7 +66,7 @@ ggmice <- function(data = NULL, mapping = ggplot2::aes()) {
   }
   if (mice::is.mids(data)) {
     where_xy <- rowSums(as.matrix(data$where[, c(vrb_x, vrb_y)])) > 0L
-    miss_xy  <- rowSums(as.matrix(is.na(data$data[, c(vrb_x, vrb_y)]))) > 0L
+    miss_xy <- rowSums(as.matrix(is.na(data$data[, c(vrb_x, vrb_y)]))) > 0L
     mice_data <- dplyr::mutate(
       rbind(
         data.frame(.where = "observed", .imp = 0, .id = rownames(data$data), data$data)[!miss_xy, ],

@@ -23,7 +23,7 @@ plot_pattern <- function(data, vrb = "all", square = FALSE, rotate = FALSE, clus
       stop("Cluster variable not recognized, please provide the variable name as a character string.")
     }
   }
-  if(".x" %in% vrb | ".y" %in% vrb) {
+  if (".x" %in% vrb | ".y" %in% vrb) {
     stop("The variable names '.x' and '.y' are used internally to produce the missing data pattern plot. Please exclude or rename your variable(s).")
   }
   # get missing data pattern and extract info
