@@ -23,12 +23,23 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
     prd = rep(vrbs, each = p),
     vrb = vrbs,
     ind = matrix(data, nrow = p * p, byrow = TRUE)
-  )
-  gg <- ggplot2::ggplot(long, ggplot2::aes(x = .data$prd, y = .data$vrb, label = .data$ind, fill = factor(.data$ind, levels = c(-2, 0, 1, 2, 3), labels = c("cluster variable", "not used", "predictor", "random effect", "inclusion-restriction variable"), ordered = TRUE))) +
+  ) %>% dplyr::mutate(
+    clr = factor(
+      .data$ind,
+      levels = c(-2, 0, 1, 2, 3),
+      labels = c("cluster variable", "not used", "predictor", "random effect", "inclusion-restriction variable"),
+      ordered = TRUE)
+    )
+  gg <- ggplot2::ggplot(long, ggplot2::aes(x = .data$prd, y = .data$vrb, label = .data$ind, fill = .data$clr)) +
     ggplot2::geom_tile(color = "black", alpha = 0.6) +
     ggplot2::scale_x_discrete(limits = vrbs, position = "top") +
     ggplot2::scale_y_discrete(limits = rev(vrbs)) +
-    ggplot2::scale_fill_manual(values = c("cluster variable" = "lightyellow", "not used" = "grey90", "predictor" = "palegreen3", "random effect" = "deepskyblue", "inclusion-restriction variable" = "orangered")) +
+    ggplot2::scale_fill_manual(values = c(
+      "cluster variable" = "lightyellow",
+      "not used" = "grey90",
+      "predictor" = "palegreen3",
+      "random effect" = "deepskyblue",
+      "inclusion-restriction variable" = "orangered")) +
     ggplot2::labs(
       x = "Imputation model predictor",
       y = "Variable to impute",
