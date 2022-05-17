@@ -24,15 +24,15 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
     vrb = vrbs,
     ind = matrix(data, nrow = p * p, byrow = TRUE)
   )
-  gg <- ggplot2::ggplot(long, ggplot2::aes(x = .data$prd, y = .data$vrb, label = .data$ind, fill = ifelse(.data$ind == 0, "no", "yes"))) +
+  gg <- ggplot2::ggplot(long, ggplot2::aes(x = .data$prd, y = .data$vrb, label = .data$ind, fill = factor(.data$ind, levels = c(-2, 0, 1, 2, 3), labels = c("cluster variable", "not used", "predictor", "random effect", "inclusion-restriction variable"), ordered = TRUE))) +
     ggplot2::geom_tile(color = "black", alpha = 0.6) +
     ggplot2::scale_x_discrete(limits = vrbs, position = "top") +
     ggplot2::scale_y_discrete(limits = rev(vrbs)) +
-    ggplot2::scale_fill_manual(values = c("yes" = "grey50", "no" = "grey90")) + ## 006CC2B3
+    ggplot2::scale_fill_manual(values = c("cluster variable" = "lightyellow", "not used" = "grey90", "predictor" = "palegreen3", "random effect" = "deepskyblue", "inclusion-restriction variable" = "orangered")) +
     ggplot2::labs(
       x = "Imputation model predictor",
       y = "Variable to impute",
-      fill = "Predictor used",
+      fill = "",
       color = ""
     ) +
     theme_minimice()
