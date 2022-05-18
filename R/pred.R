@@ -1,7 +1,7 @@
 #' Plot the predictor matrix of an imputation model
 #'
 #' @param data A predictor matrix for `mice`, typically generated with [mice::make.predictorMatrix] or [mice::quickpred].
-#' @param method Character string or vector with imputation methods (not implemented yet!).
+#' @param method Character string or vector with imputation methods.
 #' @param label Logical indicating whether predictor matrix values should be displayed.
 #' @param square Logical indicating whether the plot tiles should be squares.
 #' @param rotate Logical indicating whether the variable name labels should be rotated 90 degrees.
@@ -16,12 +16,27 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
   if (!is.matrix(data) | dim(data)[1] != dim(data)[2]) {
     stop("Predictor matrix should be a square matrix, try using mice::make.predictorMatrix() or mice::quickpred().")
   }
-  # if (!is.null(method)) {length(method)}
+  p <- nrow(data)
+  if (!is.null(method) & is.character(method)) {
+    if (length(method) == 1) {
+      method <- rep(method, p)
+    }
+    if (length(method) == p) {
+      ylabel <- "Imputation method"
+    }
+  }
+  if (is.null(method)) {
+    method <- rep("", p)
+    ylabel <- ""
+  }
+  if (!is.character(method) | length(method) != p) {
+    stop("Method should be NULL or a character string or vector (of length 1 or `ncol(data)`).")
+  }
+
   vrbs <- row.names(data)
-  p <- dim(data)[2]
   long <- data.frame(
+    vrb = 1:p,
     prd = rep(vrbs, each = p),
-    vrb = vrbs,
     ind = matrix(data, nrow = p * p, byrow = TRUE)
   ) %>% dplyr::mutate(
     clr = factor(
@@ -31,10 +46,14 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
       ordered = TRUE
     )
   )
+
   gg <- ggplot2::ggplot(long, ggplot2::aes(x = .data$prd, y = .data$vrb, label = .data$ind, fill = .data$clr)) +
     ggplot2::geom_tile(color = "black", alpha = 0.6) +
     ggplot2::scale_x_discrete(limits = vrbs, position = "top") +
-    ggplot2::scale_y_discrete(limits = rev(vrbs)) +
+    ggplot2::scale_y_reverse(
+      breaks = 1:p,
+      labels = vrbs,
+      sec.axis = ggplot2::dup_axis(labels = method, name = ylabel)) +
     ggplot2::scale_fill_manual(values = c(
       "cluster variable" = "lightyellow",
       "not used" = "grey90",
@@ -49,6 +68,7 @@ plot_pred <- function(data, method = NULL, label = TRUE, square = TRUE, rotate =
       color = ""
     ) +
     theme_minimice()
+
   if (label) {
     gg <- gg + ggplot2::geom_text(color = "black", show.legend = FALSE)
   }
