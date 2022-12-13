@@ -4,7 +4,14 @@
 \alias{plot_pattern}
 \title{Plot the missing data pattern of an incomplete dataset}
 \usage{
-plot_pattern(data, vrb = "all", square = FALSE, rotate = FALSE, cluster = NULL)
+plot_pattern(
+  data,
+  vrb = "all",
+  square = FALSE,
+  rotate = FALSE,
+  cluster = NULL,
+  npat = NULL
+)
 }
 \arguments{
 \item{data}{An incomplete dataset of class \code{data.frame} or \code{matrix}.}
@@ -16,6 +23,8 @@ plot_pattern(data, vrb = "all", square = FALSE, rotate = FALSE, cluster = NULL)
 \item{rotate}{Logical indicating whether the variable name labels should be rotated 90 degrees.}
 
 \item{cluster}{Optional character string specifying which variable should be used for clustering (e.g., for multilevel data).}
+
+\item{npat}{Optional numeric input specifying the number of missing data patterns to be visualized, defaults to all patterns.}
 }
 \value{
 An object of class \link[ggplot2:ggplot]{ggplot2::ggplot}.
